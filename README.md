@@ -1,6 +1,59 @@
 # flutter_tutorial
 flutterのチュートリアル学習用。  
 
+## 学んだこと
+### State
+* StatefulWidgetを継承すると、Stateを扱えるようになる
+* createState()メソッドで、State を使用する宣言を行う
+* State が変わると画面が再描画される
+* 再描画するためには、setState()メソッドの中で行う必要がある
+
+```dart
+// StatefulWidgetを継承すると、Stateを扱えるようになる
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+
+  final String title;
+
+  // MyHomePageState で使う State を作る宣言
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+// Stateの変更とUIの描画
+class _MyHomePageState extends State<MyHomePage> {
+  // これがState
+  int _counter = 0;
+
+  // State が変わるとUIが再描画される
+  void _incrementCounter() {
+    // setStatメソッドの中でStateを更新した時のみ、再描画される
+    setState(() {
+      _counter++;
+    });
+  }
+
+  // UIの描画を行う
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      ・
+      ・(その他処理)
+      ・
+      floatingActionButton: FloatingActionButton(
+        // ボタンを押すと以下のメソッドが呼ばれる
+        onPressed: () {
+          _incrementCounter();
+          // こんなやり方でも可能
+          setState(() {
+            _counter++;
+          });
+        },
+      ),
+    );
+  }
+}
+```
 
 ## Getting Started
 
