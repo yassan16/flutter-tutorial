@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// StatefulWidgetを継承すると、Stateを扱えるようになる
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -14,10 +15,12 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
+  // MyHomePageState で使う State を作る宣言
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+// stateの変更とUIの描画
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
@@ -27,6 +30,10 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  // 表示対象のリスト
+  final List<String> myLikeFoodList = ["焼きそば", "ラーメン", "ホワイトシチュー"];
+
+  // UIの描画を行う
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,20 +41,14 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
+      // 今回のテーマListViewの使い方
+      body: ListView.builder(
+          itemCount: myLikeFoodList.length, // Listの要素数
+          itemBuilder: (context, index) {
+            // indexはitemCount分の数字
+            return Text(myLikeFoodList[index]);
+          }),
+
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
