@@ -1,5 +1,6 @@
 # flutter_tutorial
 flutterのチュートリアル学習用。  
+参考動画: [Flutter研修【MIXI 23新卒技術研修】](https://www.youtube.com/watch?v=9IqUQ2TXacI)
 
 ## 学んだこと
 ### State

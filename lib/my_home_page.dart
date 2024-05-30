@@ -15,6 +15,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   // これがState
   int _counter = 0;
+  // これもState
+  String _displayText = "初期値";
 
   // State が変わるとUIが再描画される
   void _incrementCounter() {
@@ -34,15 +36,21 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+          children: [
+            // 入力するとStateが更新されるので、表示内容も変更される
+            // 文字が入力されるたびに呼ばれる
+            TextField(
+              onChanged: (value) {
+                // valuenには入力された文字が入る
+                print(value);
+                // Stateを変更し、再描画させる
+                setState(() {
+                  _displayText = value;
+                });
+              },
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+            // TextFieldの中身を表示させるため
+            Text(_displayText),
           ],
         ),
       ),
