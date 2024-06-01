@@ -56,6 +56,25 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 ```
 
+### Navigator
+* MaterialApp が持っている Navigator を使用して画面遷移する
+* MaterialPageRouteに箱(土台)がある
+* この箱の底に初期ページがあるイメージ
+* 初期ページに対して、次のページを上に追加するのが push
+* 現在のページを取り除くのが、pop
+
+```dart
+void _openMyPage() {
+  Navigator.push(
+    context,
+    MaterialPageRoute<void>(
+      // 次のページのWidgetを渡す
+      builder: (BuildContext context) => const MyPage(),
+    ),
+  );
+}
+```
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
