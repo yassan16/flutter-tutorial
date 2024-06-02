@@ -75,6 +75,23 @@ void _openMyPage() {
 }
 ```
 
+### Http
+* URLを準備する
+* HttpGetを行う
+* サーバでのデータ収集を待つ必要があるので、awaitで待機する
+* 取得結果がレスポンスに入る
+* 参考サイト: [pub.dev http](https://pub.dev/packages/http)
+
+```dart
+import 'package:http/http.dart' as http;
+
+var url = Uri.https('example.com', 'whatsit/create');
+// getの場合はURLのみ
+var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
+print('Response status: ${response.statusCode}');
+print('Response body: ${response.body}');
+```
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 // StatefulWidgetを継承すると、Stateを扱えるようになる
 class MyHomePage extends StatefulWidget {
@@ -18,12 +21,19 @@ class _MyHomePageState extends State<MyHomePage> {
   // これもState
   String _displayText = "初期値";
 
-  // State が変わるとUIが再描画される
-  void _incrementCounter() {
-    // setStatメソッドの中でStateを更新した時のみ、再描画される
-    setState(() {
-      _counter++;
-    });
+  /// 非同期処理なので、戻り値はFeature型になる(将来的には戻ってくるイメージ？？)
+  ///
+  /// サーバーでのデータ取得を待つために、awaitで待機しておく
+  Future<void> getGithubRepo() async {
+    var url = Uri.https("api.github.com", "users/yassan16/repos");
+    var response = await http.get(url);
+
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
+    // リスポンスをMapに変換する
+    final List decodedResponse = json.decode(response.body);
+    print(decodedResponse);
   }
 
   // UIの描画を行う
@@ -57,11 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         // ボタンを押すと以下のメソッドが呼ばれる
         onPressed: () {
-          _incrementCounter();
-          // こんなやり方でも可能
-          setState(() {
-            _counter++;
-          });
+          getGithubRepo();
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
