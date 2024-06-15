@@ -92,6 +92,16 @@ print('Response status: ${response.statusCode}');
 print('Response body: ${response.body}');
 ```
 
+## APIキーの管理
+
+### 参考サイト
+* [pub.dev envied](https://pub.dev/packages/envied)
+* [【Flutter】APIキーの安全な管理](https://qiita.com/myzw1mt3/items/1543c3e1307fb89279fa)
+* [flutterにてENVied利用時にジェネレーターがエラーを出した時の対処法](https://qiita.com/mutaka/items/c2e6c1ee1b728ed855b3)
+
+## Talk API
+* [Talk API](https://a3rt.recruit.co.jp/product/talkAPI/)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

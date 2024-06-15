@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tutorial/page/sample/first_page.dart';
-import 'package:flutter_tutorial/page/my_home_page.dart';
+import 'package:flutter_tutorial/page/chat_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,6 +19,6 @@ class MyApp extends StatelessWidget {
               ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 255, 204, 1)),
           useMaterial3: true,
         ),
-        home: const MyHomePage());
+        home: const ChatPage());
   }
 }

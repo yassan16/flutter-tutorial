@@ -1,20 +1,21 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_tutorial/env/env.dart';
 import 'package:flutter_tutorial/page/post_page.dart';
 import 'package:http/http.dart' as http;
 
 // StatefulWidgetを継承すると、Stateを扱えるようになる
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class ChatPage extends StatefulWidget {
+  const ChatPage({super.key});
 
   // MyHomePageState で使う State を作る宣言
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<ChatPage> createState() => _ChatPageState();
 }
 
 /// AIとのトーク画面
-class _MyHomePageState extends State<MyHomePage> {
+class _ChatPageState extends State<ChatPage> {
   String text = "";
 
   /// 投稿ページ呼び出し
@@ -37,6 +38,20 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  /// Talk APIへの回答取得
+  Future<void> getTalkApiResponse() async {
+    var url = Uri.https("api.a3rt.recruit.co.jp", "talk/v1/smalltalk");
+    var response =
+        await http.post(url, body: {"apikey": Env.key, "query": "おはよう"});
+
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
+    // リスポンスをMapに変換する
+    // final List decodedResponse = json.decode(response.body);
+    // print(decodedResponse);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,6 +64,12 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             // TextFieldの中身を表示させるため
             Text(text),
+            ElevatedButton(
+              onPressed: () {
+                getTalkApiResponse();
+              },
+              child: const Text('API呼び出しテスト'),
+            ),
           ],
         ),
       ),
