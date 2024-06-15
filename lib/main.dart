@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tutorial/first_page.dart';
-import 'package:flutter_tutorial/my_home_page.dart';
+import 'package:flutter_tutorial/page/sample/first_page.dart';
+import 'package:flutter_tutorial/page/my_home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,11 +15,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme:
+              ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 255, 204, 1)),
           useMaterial3: true,
         ),
-        home: const MyHomePage(
-          title: 'Http通信',
-        ));
+        home: const MyHomePage());
   }
 }
