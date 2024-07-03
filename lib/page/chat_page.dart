@@ -16,7 +16,8 @@ class ChatPage extends StatefulWidget {
 
 /// AIとのトーク画面
 class _ChatPageState extends State<ChatPage> {
-  String text = "";
+  String postText = "";
+  String apiResponseText = "";
 
   /// 投稿ページ呼び出し
   Future<void> openPostPage() async {
@@ -30,26 +31,35 @@ class _ChatPageState extends State<ChatPage> {
       ),
     );
 
-    // デフォルトの×ボタン(戻るボタン)では、nullが返されるs
+    // デフォルトの×ボタン(戻るボタン)では、nullが返される
     if (v != null) {
       setState(() {
-        text = v;
+        postText = v;
       });
     }
   }
 
   /// Talk APIへの回答取得
-  Future<void> getTalkApiResponse() async {
+  Future<void> getTalkApiResponse(String requestParm) async {
     var url = Uri.https("api.a3rt.recruit.co.jp", "talk/v1/smalltalk");
     var response =
-        await http.post(url, body: {"apikey": Env.key, "query": "おはよう"});
+        await http.post(url, body: {"apikey": Env.key, "query": requestParm});
 
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
+    var responseJson = jsonDecode(response.body);
+    print("取得結果: ${responseJson["results"]}");
 
-    // リスポンスをMapに変換する
-    // final List decodedResponse = json.decode(response.body);
-    // print(decodedResponse);
+    String resultApiText = getResponseBodyResult(responseJson);
+
+    setState(() {
+      apiResponseText = resultApiText;
+    });
+  }
+
+  String getResponseBodyResult(dynamic jsonResponse) {
+    // print(jsonResponse);
+    // print(jsonResponse.runtimeType);
+    // print(jsonResponse["results"][0]["reply"]);
+    return jsonResponse["results"][0]["reply"];
   }
 
   @override
@@ -63,13 +73,14 @@ class _ChatPageState extends State<ChatPage> {
         child: Column(
           children: [
             // TextFieldの中身を表示させるため
-            Text(text),
+            Text(postText),
             ElevatedButton(
               onPressed: () {
-                getTalkApiResponse();
+                getTalkApiResponse(postText);
               },
               child: const Text('API呼び出しテスト'),
             ),
+            Text(apiResponseText),
           ],
         ),
       ),
